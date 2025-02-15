@@ -20,6 +20,7 @@ function createBoard() {
         const square = document.createElement('div');
         square.classList.add('square');
         square.innerHTML = startPos;
+        square.firstChild?.setAttribute('draggable', true);
         square.setAttribute('square-id', i);
         const row = Math.floor((63 - i) / 8) + 1;
         if (row % 2 == 0) {
@@ -39,4 +40,34 @@ function createBoard() {
     })
 }
 
-createBoard()
+createBoard();
+
+const allSquares = document.querySelectorAll("#chessboard .square");
+
+allSquares.forEach(square => {
+    square.addEventListener('dragstart', dragStart);
+    square.addEventListener('dragover', dragOver);
+    square.addEventListener('drop', dragDrop);
+})
+
+let pieceStartPos;
+let pieceDragged;
+
+function dragStart(e){
+    pieceStartPos = e.target.parentNode.getAttribute('square-id')
+    pieceDragged = e.target
+
+    console.log(pieceDragged, pieceStartPos)
+}
+
+function dragOver(e){
+    e.preventDefault()
+}
+
+function dragDrop(e){
+    e.stopPropagation()
+    //e.target.append(pieceDragged)
+    e.target.parentNode.append(pieceDragged)
+    e.target.remove()
+    
+}
