@@ -26,13 +26,15 @@ p{
 }
 
 path{
+    width: 1px;
+    height: 1px;
     position: relative;
-    z-index: -10;
+    z-index: -99999;
 }
 
 .piece{
     position: relative;
-    z-index: 9;
+    z-index: 10;
 }
 
 .w {

@@ -53,11 +53,13 @@ allSquares.forEach(square => {
 let pieceStartPos;
 let pieceDragged;
 
+const allPaths = document.querySelectorAll("path");
+
 function dragStart(e){
     pieceStartPos = e.target.parentNode.getAttribute('square-id')
     pieceDragged = e.target
 
-    console.log(pieceDragged, pieceStartPos)
+
 }
 
 function dragOver(e){
@@ -67,7 +69,14 @@ function dragOver(e){
 function dragDrop(e){
     e.stopPropagation()
     //e.target.append(pieceDragged)
-    e.target.parentNode.append(pieceDragged)
-    e.target.remove()
+    if (e.target.tagName.toLowerCase() == 'path'){
+        e.target.parentNode.parentNode.append(pieceDragged)
+        e.target.parentNode.remove() 
+    } else {
+        e.target.parentNode.append(pieceDragged)
+        e.target.remove()
+    }
+
     
+    console.log(e.target)
 }
